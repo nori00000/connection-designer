@@ -1,0 +1,14 @@
+{
+  "sessions": {
+    "d1cbf383-acd8-4d79-88e0-567d83cc8daa": {
+      "injectedPaths": [
+        "/Users/leesangmin/.claude/skills/omc-learned/debug-hypothesis-reset/SKILL.md",
+        "/Users/leesangmin/.claude/skills/omc-learned/tool-scope-matrix/SKILL.md",
+        "/Users/leesangmin/.claude/skills/omc-learned/auto-retrospective/SKILL.md",
+        "/Users/leesangmin/.claude/skills/omc-learned/advisor-executor-split/SKILL.md",
+        "/Users/leesangmin/.claude/skills/omc-learned/keyword-first/SKILL.md"
+      ],
+      "timestamp": 1776951983101
+    }
+  }
+}

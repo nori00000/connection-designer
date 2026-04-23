@@ -1,0 +1,5 @@
+{"t":0,"agent":"system","event":"skill_activated","skill_name":"debug-hypothesis-reset","skill_source":"user"}
+{"t":0,"agent":"system","event":"skill_activated","skill_name":"tool-scope-matrix","skill_source":"user"}
+{"t":0,"agent":"system","event":"skill_activated","skill_name":"auto-retrospective","skill_source":"user"}
+{"t":0,"agent":"system","event":"skill_activated","skill_name":"advisor-executor-split","skill_source":"user"}
+{"t":0,"agent":"system","event":"skill_activated","skill_name":"keyword-first","skill_source":"user"}

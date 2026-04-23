@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이상민 — 감성을 가꾸다 · AI Beyond 2026-04-23</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* =========================================================
+   DESIGN SYSTEM — 단일 통합 (한지 크림 / CMDS 그린 / 테라코타)
+   ========================================================= */
+:root {
+  --bg:          #faf7ee;
+  --bg-elev:     #ffffff;
+  --bg-soft:     #f2ede0;
+
+  --ink:         #1a1d1a;
+  --ink-soft:    #4a4d48;
+  --ink-mute:    #8a8d88;
+
+  --line:        #d8d2c0;
+  --line-soft:   #e8e3d0;
+
+  /* CMDS Green (구요한 system.cmdspace.work) — 시리즈 통일 */
+  --green:       #134538;
+  --green-mid:   #1a5d4b;
+  --green-soft:  #f1f7f4;
+  --green-deep:  #0a2820;
+
+  /* VoidNews Orange (손상현) — 시리즈 통일 */
+  --terra:       #E87040;
+  --terra-soft:  #fbeee5;
+
+  --ff-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  --ff-serif: "Lora", "Times New Roman", Georgia, serif;
+  --ff-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+html, body { background: var(--bg); }
+
+.reveal {
+  font-family: var(--ff-sans);
+  background: var(--bg);
+  color: var(--ink);
+  letter-spacing: -0.008em;
+}
+.reveal .slides { text-align: left; }
+.reveal section {
+  padding: 0 4%;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.reveal .slides section { box-sizing: border-box; }
+.reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal blockquote {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.flow-row, .steps li {
+  min-width: 0;
+}
+.flow-row > div, .steps li > * {
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Typography — 발표용 큰 사이즈 */
+.reveal h1 {
+  font-family: var(--ff-sans);
+  font-size: 2.8em;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 0.3em 0;
+}
+.reveal h2 {
+  font-family: var(--ff-sans);
+  font-size: 1.95em;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 0.5em 0;
+}
+.reveal h3 {
+  font-family: var(--ff-sans);
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.4em 0;
+  letter-spacing: -0.01em;
+}
+.reveal p, .reveal li {
+  font-family: var(--ff-sans);
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.reveal strong { color: var(--green); font-weight: 700; }
+.reveal em {
+  color: var(--terra);
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 500;
+}
+.reveal a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green); }
+.reveal blockquote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 4px solid var(--green);
+  background: var(--green-soft);
+  padding: 0.8em 1.2em;
+  margin: 0.7em 0;
+  border-radius: 3px;
+}
+
+/* Kicker */
+.kicker {
+  font-family: var(--ff-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.6em;
+}
+.kicker.terra { color: var(--terra); }
+.kicker.muted { color: var(--ink-mute); }
+
+/* Card — 모든 카드의 단일 컴포넌트 */
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1em 1.3em;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--green);
+  box-shadow: 0 4px 18px rgba(31,76,58,0.08);
+  transform: translateY(-2px);
+}
+.card h3 {
+  font-size: 1.1em;
+  margin-bottom: 0.4em;
+}
+.card p {
+  font-size: 0.95em;
+  margin: 0;
+  line-height: 1.55;
+}
+.card ul {
+  margin: 0.3em 0 0 0;
+  padding-left: 1.1em;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+.card ul li { color: var(--ink-soft); }
+.card ul li::marker { color: var(--green); }
+
+/* Card variant — 강조 (좌측 컬러 strip) */
+.card.accent { border-left: 3px solid var(--green); }
+.card.accent-terra { border-left: 3px solid var(--terra); }
+
+/* Grid */
+.grid { display: grid; gap: 14px; }
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.g6 { grid-template-columns: repeat(6, 1fr); }
+.g23 { grid-template-columns: 2fr 3fr; }
+.g32 { grid-template-columns: 3fr 2fr; }
+
+/* Stats */
+.stats { display: flex; gap: 2.4em; flex-wrap: wrap; }
+.stat .n {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 2.4em;
+  font-weight: 400;
+  color: var(--green);
+  line-height: 1;
+  display: block;
+}
+.stat .n.t { color: var(--terra); }
+.stat .k {
+  font-family: var(--ff-mono);
+  font-size: 0.55em;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.5em;
+}
+
+/* PART 표지 — 단일 깊은 그린 */
+.part-cover {
+  background: var(--green-deep) !important;
+  color: #f4ede0;
+  padding: 0 8% !important;
+}
+.part-cover h1 { color: #f4ede0; font-size: 2.6em; }
+.part-cover p { color: #b8c8b8; }
+.part-cover .kicker { color: var(--terra); }
+.part-cover blockquote {
+  background: rgba(255,255,255,0.04);
+  border-left-color: var(--terra);
+  color: #f4ede0;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 6vh 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+.hero h1 {
+  font-family: var(--ff-serif);
+  font-size: 4.4em;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0.2em 0 0.1em;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.hero h1 em {
+  font-family: var(--ff-serif);
+  color: var(--terra);
+  font-style: italic;
+  font-weight: 500;
+}
+.hero .sub {
+  font-family: var(--ff-sans);
+  color: var(--ink-soft);
+  font-size: 0.95em;
+  margin-top: 0.4em;
+}
+.hero .quote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  color: var(--ink);
+  font-size: 1em;
+  line-height: 1.7;
+  max-width: 30em;
+  margin: 2em auto 0;
+}
+.hero .quote em { color: var(--terra); }
+.hero .meta {
+  font-family: var(--ff-mono);
+  font-size: 0.6em;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  margin-top: 2.5em;
+}
+
+/* Leaf decoration */
+.leaf-deco {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.10;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+
+/* 운영 흐름 (워크플로 / 매트릭스) */
+.flow {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  overflow: hidden;
+}
+.flow-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.6fr;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background 0.2s ease;
+  font-size: 0.95em;
+}
+.flow-row:last-child { border-bottom: 0; }
+.flow-row:hover { background: var(--green-soft); }
+.flow-row .col-a { font-weight: 600; color: var(--ink); }
+.flow-row .col-b {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  color: var(--terra);
+  text-align: center;
+  font-size: 1em;
+}
+.flow-row .col-c { color: var(--ink-soft); }
+
+/* 워크플로 단계 (1~5) */
+.steps { list-style: none; padding: 0; margin: 0; }
+.steps li {
+  display: grid;
+  grid-template-columns: 42px 200px 1fr 220px;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.92em;
+}
+.steps li:last-child { border-bottom: 0; }
+.steps .n {
+  background: var(--green);
+  color: #fff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: var(--ff-mono);
+  font-size: 0.95em;
+}
+.steps .stage { font-weight: 700; color: var(--ink); }
+.steps .desc { color: var(--ink-soft); font-size: 0.92em; }
+.steps .arrow {
+  text-align: right;
+  color: var(--terra);
+  font-family: var(--ff-mono);
+  font-size: 0.85em;
+}
+
+/* Stage 4 — 진화 단계 카드 */
+.evolve { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.evolve > div {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 22px 16px;
+  text-align: center;
+  background: var(--bg-elev);
+  font-size: 0.92em;
+  transition: all 0.25s ease;
+}
+.evolve > div:hover { border-color: var(--green); transform: translateY(-2px); }
+.evolve > div b {
+  display: block;
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 1.5em;
+  color: var(--green);
+  margin-bottom: 0.4em;
+  font-weight: 500;
+}
+.evolve > div span { color: var(--ink-soft); display: block; line-height: 1.5; }
+
+/* Pill */
+.pill {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--green-soft);
+  color: var(--green);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 0.7em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pill.t { background: var(--terra-soft); color: var(--terra); border-color: rgba(201,100,66,0.3); }
+
+/* 시연 슬라이드 강조 */
+.demo-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--terra);
+  border-radius: 6px;
+  padding: 1em 1.4em;
+}
+.demo-card .url {
+  font-family: var(--ff-mono);
+  background: var(--green-soft);
+  color: var(--green);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+/* 사진 슬라이드 */
+.photo-frame {
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-frame img { width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block; }
+
+/* Table */
+.reveal table {
+  font-size: 0.75em;
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.reveal table th, .reveal table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  color: var(--ink-soft);
+}
+.reveal table th {
+  background: var(--green-soft);
+  color: var(--green);
+  font-family: var(--ff-mono);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.reveal table tr:last-child td { border-bottom: 0; }
+
+/* Footer */
+.footer-tag {
+  position: fixed;
+  bottom: 8px; right: 14px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-mute);
+  z-index: 100;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* Reveal slide number */
+.reveal .slide-number {
+  font-family: var(--ff-mono);
+  background: transparent;
+  color: var(--ink-mute);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* Reveal controls */
+.reveal .controls { color: var(--green); }
+.reveal .progress { color: var(--terra); height: 2px; }
+</style>
+</head>
+<body>
+<div class="footer-tag">v0.1 · 2026-04-23 · nori00000 · 감성을 가꾸다</div>
+
+<div class="reveal"><div class="slides">
+
+<!-- ============ 1. TITLE ============ -->
+<section class="hero">
+  <svg class="leaf-deco" style="top:-40px; left:-50px; transform:rotate(-15deg);" width="320" height="320" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 6 C 72 18, 82 38, 78 60 C 74 80, 60 92, 50 94 C 40 92, 26 80, 22 60 C 18 38, 28 18, 50 6 Z" fill="#1f4c3a"/>
+    <path d="M50 6 L50 94" stroke="#14352a" stroke-width="0.5" opacity="0.5"/>
+  </svg>
+  <svg class="leaf-deco" style="bottom:-50px; right:-40px; transform:rotate(20deg);" width="280" height="280" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="8" fill="#c96442"/>
+    <ellipse cx="50" cy="28" rx="8" ry="14" fill="#c96442" opacity="0.7"/>
+    <ellipse cx="50" cy="72" rx="8" ry="14" fill="#c96442" opacity="0.7"/>
+    <ellipse cx="28" cy="50" rx="14" ry="8" fill="#c96442" opacity="0.7"/>
+    <ellipse cx="72" cy="50" rx="14" ry="8" fill="#c96442" opacity="0.7"/>
+  </svg>
+
+  <p class="kicker">AI Beyond Seminar · 2026.04.23 · Connection Designer</p>
+  <h1>감성을 <em>가꾸다</em></h1>
+  <p class="sub">자연 · 사람 · 시스템을 잇는 한 사람의 AI 운영 보고서</p>
+
+  <div class="stats" style="justify-content:center; margin-top:2em;">
+    <div class="stat"><span class="n">5</span><span class="k">활동 영역</span></div>
+    <div class="stat"><span class="n t">2</span><span class="k">법인</span></div>
+    <div class="stat"><span class="n">36</span><span class="k">운영 시스템</span></div>
+    <div class="stat"><span class="n t">9</span><span class="k">운영 머신</span></div>
+  </div>
+
+  <p class="quote">
+    "자연과 사람의 감성을 잇는 사람입니다.<br>
+    AI는 그 <em>가꿈</em>을 가속하는 도구입니다."
+  </p>
+
+  <p class="meta">v0.1 · 2026-04-23 · github.com/nori00000 · 어반정글 / 네이처커뮤니티</p>
+</section>
+
+<!-- ============ 2. 오프닝 사진 ============ -->
+<section>
+  <p class="kicker terra">시작 전에 — 방금 거기서 옵니다</p>
+  <h2>오늘 고양국제꽃박람회 <em>국경없는의사회 쇼가든</em>을 짓고 오는 길입니다</h2>
+  <div class="grid g23" style="margin-top:0.8em;">
+    <div class="photo-frame">
+      <img src="msf-showgarden.jpg" alt="MSF 쇼가든"
+           onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;color:#8a8d88; padding:40px; text-align:center; font-size:13px; font-family:JetBrains Mono;&quot;>📷 ~/Desktop/msf-showgarden.jpg<br>위치에 사진 저장</div>'">
+    </div>
+    <div>
+      <blockquote>그래서 이 발표를 차분히 준비하지 못했습니다. 양해 부탁드립니다.</blockquote>
+      <p style="margin-top:1em;"><strong>그런데</strong> — 이게 오늘 발표 핵심과 정확히 맞닿아 있습니다.</p>
+      <p style="margin-top:0.6em;">낮엔 꽃박람회에서 MSF 쇼가든을 짓고, 저녁엔 AI Beyond에 와서 발표합니다. 이게 가능하려면 <strong>회사 운영의 모든 곳에 AI가 깔려 있어야</strong> 합니다.</p>
+      <p style="margin-top:1em; color:var(--ink-mute); font-size:0.7em;">"나의 봄이 되어줘" — 고양국제꽃박람회 2026 · 국경없는의사회 쇼가든 (어반정글 시공)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. 누구 — 세 모자 ============ -->
+<section>
+  <p class="kicker">소개</p>
+  <h2>저는 누구인가 — 세 모자</h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">운영자 · 메이커</span>
+      <h3 style="margin-top:8px;">두 회사 + 메이킹</h3>
+      <ul>
+        <li><strong>어반정글</strong> — 정원 설계·시공 (그린월 주력)</li>
+        <li><strong>네이처커뮤니티</strong> — 고양시 대화동 이끼 농장 (교육문화메이킹 공간)</li>
+        <li><strong>메이커</strong> — 실사인쇄 · 자연소재 가공·제작</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <span class="pill">애자일 코치</span>
+      <h3 style="margin-top:8px;">중소기업 AI 도입 코칭</h3>
+      <p>대영케이블 — <em>"살핌"</em> 프로젝트. 사내 운영 시스템 + 주 1회 코칭.</p>
+      <p style="margin-top:6px;"><strong>방식:</strong> 받은 자료를 <em>8일 안에 회사 시스템에 이식</em>하는 빠른 적용 사이클.</p>
+      <p style="margin-top:6px; font-size:0.86em;"><strong>AI Beyond</strong> 멤버 · <strong>AI4PKM</strong>(구요한 선생님 PKM) 초기 멤버.</p>
+    </div>
+    <div class="card accent-terra">
+      <span class="pill t">정책 · 시민 · 문화</span>
+      <h3 style="margin-top:8px;">거버넌스 · 문화기획</h3>
+      <ul>
+        <li><strong>산림형사회적경제협의회 · 한국정원단체연합회</strong> 정책 참여</li>
+        <li>이재명 대선 친환경선대위 공동선대위원장</li>
+        <li><strong>10대부터</strong> 만 18세 선거권 캠페인 — <em>청소년 문화기획</em></li>
+        <li>UNICEF · MSF · 서울식물원 · 서울숲 운영 경력</li>
+      </ul>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    이 다양함을 한 사람이 굴리려면 AI가 직원을 대신해야 합니다. 그래서 오늘 발표가 의미 있습니다.
+  </blockquote>
+</section>
+
+<!-- ============ 4. 작업 환경 ============ -->
+<section>
+  <p class="kicker">운영 환경</p>
+  <h2>컴퓨터 3대가 한 회사</h2>
+  <p style="color:var(--ink-mute); font-size:0.75em; margin-bottom:1em;">사람 직원 셋이 다른 책상에서 일하는 것과 같습니다. 각자 역할이 다릅니다.</p>
+  <div class="grid g3">
+    <div class="card">
+      <span class="pill">노트북 · 16GB</span>
+      <h3 style="margin-top:8px;">"비서"</h3>
+      <p>제가 들고 다니는 노트북. 무거운 일은 못 시킴 — 메모리 부족으로 멈출 위험. 기획·판단·요청만.</p>
+    </div>
+    <div class="card">
+      <span class="pill">사무실 맥 · 32GB</span>
+      <h3 style="margin-top:8px;">"디자이너 / 개발자"</h3>
+      <p>사무실 책상. 디자인·코드. 옆에서 직접 보면서 작업하는 컴퓨터.</p>
+    </div>
+    <div class="card">
+      <span class="pill">서버 맥 · 128GB</span>
+      <h3 style="margin-top:8px;">"24시간 공장"</h3>
+      <p>집 한쪽 24시간 가동. 크롤러·자동 분류·영상 처리. 셋은 안전한 원격 연결망으로 묶여 있음.</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    구조 만들기 전: 노트북 한 대에 다 시키다 자주 멈춤.<br>
+    구조 만든 후: <strong>각 컴퓨터가 자기 역할만 하니까 안 멈춥니다.</strong>
+  </blockquote>
+</section>
+
+<!-- ============ 5. 오늘 약속 ============ -->
+<section>
+  <p class="kicker">오늘 30분</p>
+  <h2>다섯 챕터</h2>
+  <div class="grid g2">
+    <div class="card accent">
+      <span class="pill">PART 1 · 11분</span>
+      <h3 style="margin-top:8px;">회사 운영의 6개 지점에 AI</h3>
+      <p>설계 → 시공·관리 → 영업 → 백오피스 → 컨설팅 → 미디어</p>
+    </div>
+    <div class="card accent">
+      <span class="pill">PART 2 · 5분</span>
+      <h3 style="margin-top:8px;">시스템화 패턴 + AI Beyond에서 배운 것</h3>
+      <p>4단 진화 · 멘토에게 빚진 자산 · 안 멈추는 시스템</p>
+    </div>
+    <div class="card accent">
+      <span class="pill">PART 3 · 4분</span>
+      <h3 style="margin-top:8px;">막힌 비즈니스 문제 — 도와달라</h3>
+      <p>여러분 의견이 가장 듣고 싶은 부분</p>
+    </div>
+    <div class="card accent-terra">
+      <span class="pill t">PART 4 · 7분</span>
+      <h3 style="margin-top:8px;">라이브 시연 + 협업 제안</h3>
+      <p>지금 화면에서 직접 보여드리는 4가지</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 1 표지 ============ -->
+<section class="part-cover hero">
+  <p class="kicker">PART 1 · 11분</p>
+  <h1 style="font-family:var(--ff-sans); font-style:normal; color:#f4ede0;">회사 운영의 6개 지점에<br>AI가 들어와 있습니다</h1>
+  <p style="margin-top:1.2em;">하지만 그 6개를 묶는 건 한 단어입니다.</p>
+  <p style="font-family:var(--ff-serif); font-style:italic; color:#f0c4b0; font-size:1.4em; margin-top:0.4em;">"감성을 가꾸다"</p>
+</section>
+
+<!-- ============ 6. 감성 매트릭스 ============ -->
+<section>
+  <p class="kicker">한 엔진 · 다섯 표현 · AI 가속</p>
+  <h2>다섯 활동, 한 엔진 — <em>감성을 가꾸다</em></h2>
+  <p style="color:var(--ink-mute); font-size:0.74em; margin-bottom:0.8em;">자연을 가꾸듯 사람의 마음을 가꿉니다. AI는 그 가꿈을 매일 가속합니다.</p>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="col-a">🌿 이끼 농장 · 교육문화메이킹</div>
+      <div class="col-b">"회복 · 치유"</div>
+      <div class="col-c">기억정원 — 시니어 인지 회복 AI</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🪴 정원 설계·시공 · 어반정글</div>
+      <div class="col-b">"위안 · 평화"</div>
+      <div class="col-c">쇼가든 설계 시스템 + 그린월 관리</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🛠 메이커 · 자연소재</div>
+      <div class="col-b">"정성 · 손맛"</div>
+      <div class="col-c">자연소재 디자인 생성 + 제작 자동화</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🌱 산림형사회적경제 · 정원단체</div>
+      <div class="col-b">"연대 · 공감"</div>
+      <div class="col-c">정책 모니터링 + 인사이트 분석</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🌟 청소년 문화기획 · 만 18세</div>
+      <div class="col-b">"깨움 · 변화"</div>
+      <div class="col-c">sociai.org 매체 + 시민 콘텐츠 자동화</div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:0.8em; color:var(--ink-mute); font-size:0.74em;">
+    다섯 줄 모두 <strong>한 엔진</strong>의 다섯 표현입니다. AI는 다섯 줄 모두에 동일하게 깔립니다.
+  </p>
+</section>
+
+<!-- ============ 7. 운영 맵 ============ -->
+<section>
+  <p class="kicker">PART 1 · 운영 맵</p>
+  <h2>AI가 들어간 6개 지점</h2>
+  <div class="grid g3">
+    <div class="card"><span class="pill">설계</span><h3 style="margin-top:8px;">쇼가든 설계 도구</h3><p>showgarden-planner</p></div>
+    <div class="card"><span class="pill">시공·관리</span><h3 style="margin-top:8px;">기억정원 플랫폼</h3><p>greenwall-ai</p></div>
+    <div class="card"><span class="pill">영업·자금</span><h3 style="margin-top:8px;">지원사업 레이더</h3><p>gonggo-radar</p></div>
+    <div class="card"><span class="pill">백오피스</span><h3 style="margin-top:8px;">홈택스 자동화</h3><p>hometax-automation</p></div>
+    <div class="card"><span class="pill">컨설팅</span><h3 style="margin-top:8px;">대영케이블 살핌</h3><p>consulting-daeyoung</p></div>
+    <div class="card"><span class="pill t">미디어</span><h3 style="margin-top:8px;">Sociai · 마케팅팀</h3><p>sociai · content-marketing-team</p></div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    한 곳에 깊게 박는 것보다 <strong>운영의 모든 곳에 얇게 깔리는 것</strong>이 임팩트가 큽니다. 합치면 직원 2~3명 분의 일을 합니다.
+  </blockquote>
+</section>
+
+<!-- ============ 8. 쇼가든 ============ -->
+<section>
+  <p class="kicker">① 설계</p>
+  <h2>쇼가든 설계 — 매번 손으로 하던 것을 시스템으로</h2>
+  <p style="color:var(--ink-mute); font-size:0.74em;"><strong>쇼가든</strong> = 박람회·전시장에 설치하는 작은 정원. 의뢰가 들어오면 매번 새로 설계.</p>
+  <ol class="steps">
+    <li><span class="n">1</span><span class="stage">클라이언트 인터뷰</span><span class="desc">대면·전화·카톡으로 산발적. 정리 안 됨.</span><span class="arrow">→ 카톡 자동 정리</span></li>
+    <li><span class="n">2</span><span class="stage">컨셉 발굴</span><span class="desc">레퍼런스 사진 폴더 뒤짐. 매번 새로.</span><span class="arrow">→ AI 이미지 추천</span></li>
+    <li><span class="n">3</span><span class="stage">식재 계획</span><span class="desc">머릿속 식물 DB. 협력사 재고 전화.</span><span class="arrow">→ 식물 DB + 재고 연동</span></li>
+    <li><span class="n">4</span><span class="stage">견적·도면</span><span class="desc">엑셀·캐드 수작업. 견적 한 건당 반나절.</span><span class="arrow">→ 자동 견적 생성</span></li>
+    <li><span class="n">5</span><span class="stage">시공 일정</span><span class="desc">달력 수동 기입. 협력사 일정 충돌.</span><span class="arrow">→ 일정 자동 통합</span></li>
+  </ol>
+  <blockquote style="margin-top:0.6em;">
+    핵심은 끝판왕 자동화가 아니라, <strong>각 단계에서 "내 머리에만 있던 것을 시스템 밖으로 꺼내는 것"</strong>입니다.
+  </blockquote>
+</section>
+
+<!-- ============ 9. 그린월 → 기억정원 ============ -->
+<section>
+  <p class="kicker">② 시공·관리</p>
+  <h2>그린월 → <em>기억정원</em> (시니어 복지 사업)</h2>
+  <p style="color:var(--ink-mute); font-size:0.74em;"><strong>그린월</strong> = 카페·로비 벽면에 식물을 빽빽하게 심는 벽면 녹화. <strong>기억정원</strong> = 어르신 인지 회복 프로그램.</p>
+  <div class="grid g23" style="margin-top:0.6em;">
+    <div>
+      <h3>피벗 스토리</h3>
+      <p>처음엔 "어반정글 그린월 관리 앱"으로 시작. 운영하다 보니 <strong>고객의 70%가 시니어 복지관</strong>임을 발견. 그래서 제품을 <strong>"기억정원 — 어르신 인지 회복 + 디지털 적응"</strong>으로 방향 전환.</p>
+      <p style="margin-top:0.6em;">도메인 깊이가 없었다면 못 본 신호. AI로 만든 시스템이 가벼워서 <em>2주 안에 방향 전환</em> 가능했음.</p>
+    </div>
+    <div class="card">
+      <h3>실제 기능</h3>
+      <p style="font-size:0.74em;"><strong>어르신:</strong> 주간 체크인 / 옛 사진 회상 / 키오스크·스마트폰 연습 / 만족도 표시</p>
+      <p style="margin-top:6px; font-size:0.74em;"><strong>관리자:</strong> 이용자 관리 / 운영 인사이트 / 직원 개입 기록 / 공간 분석(동선) / 환경 모니터링</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. 지원사업 레이더 ============ -->
+<section>
+  <p class="kicker">③ 영업·자금</p>
+  <h2>지원사업 레이더 — 사업 자금을 놓치지 않는 시스템</h2>
+  <div class="grid g23">
+    <div>
+      <h3>왜 만들었나</h3>
+      <p>농업·조경·치유산업 정부 지원사업은 <em>매년 수백 건</em>인데 사이트가 흩어져 있고 양식이 다 다릅니다. 운영자로서 <strong>매번 놓쳤습니다</strong>. 한 건 놓치면 한 해 사업 방향이 바뀔 만큼 큽니다.</p>
+      <h3 style="margin-top:0.8em;">구조</h3>
+      <p>서버 맥에 24시간 가동. 28개 지원사업 사이트 자동 모니터링 + AI가 적합도 점수 매김.</p>
+    </div>
+    <div class="card" style="text-align:center; align-self:center;">
+      <div class="stat"><span class="n">28</span><span class="k">자동 모니터링 사이트</span></div>
+      <div class="stat" style="margin-top:14px;"><span class="n t">24/7</span><span class="k">서버 맥 항상 가동</span></div>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.6em;">
+    <strong>운영자만 만들 수 있는 시스템</strong>입니다. 외주 업체는 도메인을 모르고, 외주 개발자는 사업의 절박함을 모릅니다.
+  </blockquote>
+</section>
+
+<!-- ============ 11. 홈택스 ============ -->
+<section>
+  <p class="kicker">④ 백오피스</p>
+  <h2>홈택스 자동화 — 두 회사 백오피스</h2>
+  <div class="grid g2">
+    <div>
+      <h3>관리 대상</h3>
+      <table>
+        <tr><th>사업체</th><th>형태</th><th>대표</th></tr>
+        <tr><td>주식회사 어반정글</td><td>법인</td><td>조수희</td></tr>
+        <tr><td>네이처커뮤니티</td><td>개인</td><td>이상민</td></tr>
+      </table>
+      <p style="margin-top:0.8em;">매월 매출·매입 세금계산서 자동 수집 → 거래처별·월별 정리 → 부가세 신고 자료 생성.</p>
+    </div>
+    <div class="card">
+      <h3>의미</h3>
+      <p>세무사 안 쓰는 게 아니라, <em>세무사에게 깨끗한 데이터를 매월 자동으로 넘기는 것</em>이 목적.</p>
+      <p style="margin-top:6px;">운영 부담을 <strong>1인 사업자 수준으로 압축</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12. 대영케이블 ============ -->
+<section>
+  <p class="kicker">⑤ 컨설팅</p>
+  <h2>대영케이블 컨설팅 — AI를 매출로 바꾸기</h2>
+  <p style="color:var(--ink-mute); font-size:0.74em;">프로젝트명 <em>"살핌"</em> — 나·일·상대를 살피는 마음. 대영케이블은 케이블 제조 중소기업.</p>
+  <div class="grid g2" style="margin-top:0.5em;">
+    <div class="card accent">
+      <h3>① 사내 운영 시스템 구축</h3>
+      <p>사장님 머릿속에만 있던 생산 흐름을 시스템에 옮기는 <strong>6주 패키지</strong>. 사내 직원이 직접 쓸 수 있도록 학습까지 포함.</p>
+    </div>
+    <div class="card accent">
+      <h3>② AI 코칭 (월정액)</h3>
+      <p>주 1회 세션 + 수시 자문 형태의 <strong>지속 운영 파트너십</strong>. 시스템 깔고 떠나는 게 아니라 <em>같이 진화시키는 모델</em>.</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    핵심: <strong>"제가 이미 회사를 AI로 운영하고 있다"</strong>가 가장 강력한 영업 증거입니다.
+  </blockquote>
+</section>
+
+<!-- ============ 13. 미디어 ============ -->
+<section>
+  <p class="kicker">⑥ 미디어</p>
+  <h2>회사가 자체 매체를 가지면</h2>
+  <div class="grid g2">
+    <div>
+      <h3>Sociai (사회연대경제 매체)</h3>
+      <p>친환경·협동조합·복지·사회적기업은 주류 신문에 거의 안 실립니다. 그래서 <strong>직접 매체를 만듭니다.</strong></p>
+      <p style="margin-top:6px;">유사하게 어반정글도 <em>자체 매체·쇼핑몰</em>을 준비 중.</p>
+      <h3 style="margin-top:0.8em;">왜 자체 매체인가</h3>
+      <p>광고비는 사라지지만, <strong>자체 매체는 회사 자산</strong>으로 쌓입니다.</p>
+    </div>
+    <div class="card">
+      <h3>"가상 마케팅 팀"</h3>
+      <p>서버 맥에서 돌아가는 <strong>AI 마케팅 팀</strong>. 단톡방 인사이트 + 뉴스 자동 수집 → AI 1차 분류 → 글 초안 → 사람 검토 → 발행</p>
+      <p style="margin-top:6px; font-size:0.72em;">관련: 카톡 분석 · 뉴스 자동 수집 · 원자재 시황 자동 브리핑</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 2 표지 ============ -->
+<section class="part-cover hero">
+  <p class="kicker">PART 2 · 5분</p>
+  <h1 style="font-family:var(--ff-sans); font-style:normal; color:#f4ede0;">시스템화 패턴 +<br>AI Beyond에서 배운 것</h1>
+  <p style="margin-top:1.2em;">"한 번에 시스템 구축"이 아닙니다.<br>그리고 저는 혼자 이 자리에 도달한 게 아닙니다.</p>
+</section>
+
+<!-- ============ 14. 4단 진화 ============ -->
+<section>
+  <p class="kicker">시스템화 패턴</p>
+  <h2>모든 운영 항목의 4단 진화</h2>
+  <div class="evolve">
+    <div><b>1. 손</b><span>매번 즉흥적으로<br>처리. 머릿속에만.</span></div>
+    <div><b>2. 메모</b><span>워드·노션·카톡<br>적기 시작. 패턴 보임.</span></div>
+    <div><b>3. 워크플로우</b><span>일부 자동화 도구.<br>반은 수동.</span></div>
+    <div><b>4. AI 처리</b><span>AI가 받아 처리.<br>인간은 결정만.</span></div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    중요한 건 <strong>"4단까지 가는 것"</strong>이 아니라 <strong>"3단의 항목 수를 늘리는 것"</strong>입니다.<br>
+    한 항목을 끝판왕까지 끌고 가느라 시간 쓰는 것보다, <em>10개 항목을 2~3단에 올리는 것</em>이 ROI가 큽니다.
+  </blockquote>
+</section>
+
+<!-- ============ 15. 멘토 ============ -->
+<section>
+  <p class="kicker">AI Beyond 가족</p>
+  <h2>이 자리의 멘토 분들에게 받은 — 발표 직전 1주일</h2>
+  <p style="color:var(--ink-mute); font-size:0.74em;">정직하게 밝힙니다. <em>제 시스템의 절반은 이 분들의 것입니다.</em></p>
+  <div class="grid g3" style="margin-top:0.6em;">
+    <div class="card accent">
+      <h3>이주원 (인튠랩스)</h3>
+      <p>"The Autonomous Software Factory" PDF 공유 (4월 4일). 오늘 직전 발표 — <em>"나발을 소환하다 · Naval의 뇌"</em> (34개 인터뷰 → 1개 페르소나 스킬).</p>
+      <p style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);"><strong>→</strong> 8일 만에 본인 시스템에 <em>하네스 5단계</em> 적용. 자율 실행 안정화.</p>
+    </div>
+    <div class="card accent">
+      <h3>구요한 (CMDS · AI4PKM)</h3>
+      <p>CMDS(지식관리 시스템) 위에서 매일 7,660+ 노트 운용.</p>
+      <p style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);"><strong>→</strong> AI4PKM Gobi(차세대 PKM) 초기 멤버.</p>
+    </div>
+    <div class="card accent-terra">
+      <h3>손상현 (VoidNews)</h3>
+      <p>주간 AI 큐레이션 — Anthropic Advisor/Executor 분리 소개.</p>
+      <p style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--line);"><strong>→</strong> 시스템 룰에 즉시 반영. <em>정확도 +2.7%p, 비용 −11.9%</em>.</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.8em;">
+    저의 차별점은 <strong>"이 분들 옆에 있는 것"</strong> + <em>받은 자료를 며칠 안에 회사 시스템에 이식하는 속도</em>입니다. 이게 <strong>애자일 코치의 사이클</strong> — 받음 → 즉시 적용 → 회고 → 커뮤니티에 환원.
+  </blockquote>
+</section>
+
+<!-- ============ 16. 안 멈추는 시스템 ============ -->
+<section>
+  <p class="kicker">하네스</p>
+  <h2>"안 멈추는 시스템"이 진짜 ROI</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>비즈니스 의미</h3>
+      <p>"내가 매번 들여다봐야 하는 시스템" = <em>직원 한 명 더 쓰는 것과 같음</em>.</p>
+      <p style="margin-top:6px;">자동화의 진짜 목표는 <strong>"AI가 일하는 것"</strong>이 아니라 <strong>"내가 안 들여다봐도 되는 것"</strong>.</p>
+    </div>
+    <div class="card">
+      <h3>지난 1주일 적용</h3>
+      <p>예전: 자동화 시스템이 <em>30분마다 멈춰서 저한테 물어봄</em>.</p>
+      <p style="margin-top:6px;">설정 후: <strong>2시간씩 알아서 일함</strong>. 작업 시간 30%+ 회복.</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:0.8em; text-align:center;">
+    <strong>"AI를 잘 쓰는 사람과 못 쓰는 사람의 차이는<br>프롬프트가 아니라 하네스다."</strong>
+  </blockquote>
+</section>
+
+<!-- ============ PART 3 표지 ============ -->
+<section class="part-cover hero">
+  <p class="kicker">PART 3 · 4분</p>
+  <h1 style="font-family:var(--ff-sans); font-style:normal; color:#f4ede0;">막힌 비즈니스 문제<br>도와달라</h1>
+  <p style="margin-top:1.2em;">전문가 여러분의 의견을 가장 듣고 싶은 부분입니다.</p>
+</section>
+
+<!-- ============ 17. 문제 1 ============ -->
+<section>
+  <p class="kicker terra">문제 ①</p>
+  <h2>쇼가든 설계 — 어디까지 자동화 가능?</h2>
+  <div class="grid g2">
+    <div>
+      <h3>지금 막힌 곳</h3>
+      <p><strong>"클라이언트 인터뷰 → 도면 1차안"</strong>까지의 자동화. 식물 선정·재고 통합은 가능하나, <em>"이 클라이언트가 진짜 원하는 분위기"</em>를 텍스트에서 추출해 그림으로 만드는 부분이 막힘.</p>
+      <h3 style="margin-top:0.8em;">제약</h3>
+      <p>도면은 <strong>실제 시공 가능한 식물 조합</strong>이어야 함. 계절·일조량·공간 크기 다 맞아야 함.</p>
+    </div>
+    <div class="card">
+      <h3>듣고 싶은 것</h3>
+      <ul>
+        <li>"분위기·취향" 같은 모호한 말을 구조화하는 패턴</li>
+        <li>현실 제약(식물 크기·일조량)을 AI 생성에 강제하는 방법</li>
+        <li>유사 도메인 — 인테리어·패션 자동화 사례</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18. 문제 2 ============ -->
+<section>
+  <p class="kicker terra">문제 ②</p>
+  <h2>한 시스템으로 여러 회사 운영 — 안전하게</h2>
+  <div class="grid g2">
+    <div>
+      <h3>현재 상황</h3>
+      <p>두 회사(어반정글·네이처커뮤니티) + 컨설팅 클라이언트 = 최소 <strong>4개 운영 컨텍스트</strong>를 한 시스템에서 굴림.</p>
+      <h3 style="margin-top:0.8em;">위험</h3>
+      <p><em>"한 클라이언트 자료가 다른 곳에 새는 것"</em> — 컨설팅에서는 신뢰 파산.</p>
+    </div>
+    <div class="card">
+      <h3>듣고 싶은 것</h3>
+      <ul>
+        <li>1인 사업자가 여러 클라이언트를 안전하게 분리하는 패턴</li>
+        <li>역할 기반 권한 분리 적용 사례</li>
+        <li>AI가 자료를 섞지 않게 보장하는 방법</li>
+        <li>대형 컨설팅 회사들은 어떻게 처리하는지</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19. 문제 3 ============ -->
+<section>
+  <p class="kicker terra">문제 ③</p>
+  <h2>한국어 비즈니스 데이터 처리</h2>
+  <div class="grid g2">
+    <div>
+      <h3>처리해야 하는 것</h3>
+      <p>① <strong>카톡 견적 협의</strong> — "그거 얼마였죠?" 같은 맥락 의존<br>② <strong>도면 설명·시방서</strong> — 한국 조경 업계의 비표준 용어<br>③ <strong>견적서·계약서</strong> — 법적 효력 있는 문서</p>
+      <h3 style="margin-top:0.8em;">제약</h3>
+      <p>회사 자료를 외국 AI 회사 서버로 무차별 보내는 건 위험. 1차 처리는 <strong>내 컴퓨터 안에서</strong>.</p>
+    </div>
+    <div class="card">
+      <h3>듣고 싶은 것</h3>
+      <ul>
+        <li>로컬 한국어 AI 모델 — EXAONE(LG) vs Qwen(Alibaba) 비즈니스 적합성</li>
+        <li>내 컴퓨터와 클라우드 AI를 어떻게 나눠 쓰는 게 안전한지</li>
+        <li>법적 문서 처리 시 근거 인용 강제 방법</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 4 표지 ============ -->
+<section class="part-cover hero">
+  <p class="kicker">PART 4 · LIVE · 7분</p>
+  <h1 style="font-family:var(--ff-sans); font-style:normal; color:#f4ede0;">지금 보여드립니다</h1>
+  <p style="margin-top:1.2em;">말로만 한 게 아니라는 증거입니다.<br>지금 화면에서 직접 보여드릴 4가지가 있습니다.</p>
+  <p style="margin-top:1em; font-size:0.85em;">
+    ① 깃허브 정리 (비공개 → docs로 정리 중)<br>
+    ② sociai.org (실제 운영 중)<br>
+    ③ 옵시디언 노트 (지식 자산)<br>
+    ④ Claude Code 화면 (이 발표가 만들어진 곳)
+  </p>
+</section>
+
+<!-- ============ 시연 1 ============ -->
+<section>
+  <p class="kicker terra">시연 ① · 곧 공개</p>
+  <h2>운영 도큐먼트 — 비공개 레포에서 공개 docs로</h2>
+  <div class="demo-card">
+    <p><strong>현재</strong> — github.com/nori00000 의 36개 시스템은 <em>비공개</em>입니다. 운영 자료·클라이언트 정보가 섞여 있어서.</p>
+    <p style="margin-top:8px;"><strong>다음 주</strong> — 운영 도큐먼트만 정제해서 단일 docs 사이트로 공개합니다. <span class="url">lee-emotion.docs (예정)</span></p>
+  </div>
+  <h3 style="margin-top:0.8em;">발표 멘트</h3>
+  <p>"GitHub 레포는 비공개입니다. 운영 자료가 섞여 있어서요. 그래서 다음 주에 <strong>'docs 사이트' 하나로 정리해서 공개</strong>할 예정입니다. <em>오늘 발표가 그 docs의 0장입니다.</em>"</p>
+</section>
+
+<!-- ============ 시연 2 ============ -->
+<section>
+  <p class="kicker terra">시연 ② · 라이브</p>
+  <h2>실제 매체 — sociai.org가 살아 있습니다</h2>
+  <div class="demo-card">
+    <p><strong>지금 열어볼 주소</strong> &nbsp;<span class="url">https://sociai.org</span></p>
+    <p style="margin-top:6px; color:var(--ink-mute); font-size:0.72em;">방금 확인 결과 200 OK — 정상 가동.</p>
+  </div>
+  <h3 style="margin-top:0.8em;">보여줄 포인트</h3>
+  <ul>
+    <li>친환경·사회연대경제 콘텐츠 — <em>주류 매체에 안 실리는 것들</em></li>
+    <li>모바일 친화 디자인</li>
+    <li>일부 글은 <strong>AI 마케팅 팀이 초안</strong>, 제가 검토 후 발행</li>
+  </ul>
+  <p style="margin-top:0.6em; color:var(--ink-mute); font-size:0.74em;">멘트: "광고비는 사라지지만, <strong>자체 매체는 회사 자산</strong>으로 쌓입니다."</p>
+</section>
+
+<!-- ============ 시연 3 ============ -->
+<section>
+  <p class="kicker terra">시연 ③ · 라이브</p>
+  <h2>옵시디언 — AI가 매일 쌓는 지식 창고</h2>
+  <div class="demo-card">
+    <p>바탕화면 / 독에서 <strong>옵시디언 앱</strong>을 띄웁니다. <em>CMDS 시스템 위에 운영 노트 7,660+ 노트.</em></p>
+  </div>
+  <h3 style="margin-top:0.8em;">보여줄 포인트</h3>
+  <ul>
+    <li><strong>그래프뷰</strong> — 노트끼리 어떻게 연결되는지 시각적으로 (와! 효과)</li>
+    <li><strong>최근 노트</strong> — 카톡에서 자동으로 떨어진 회의·결정 사항</li>
+    <li>오늘 본 자료가 어떻게 정리되는지</li>
+  </ul>
+  <p style="margin-top:0.6em; color:var(--ink-mute); font-size:0.74em;">멘트: "AI가 일하면 결과물이 사라지면 안 됩니다. <em>매일 쌓이는 자산</em>이 되어야 진짜 ROI입니다."</p>
+</section>
+
+<!-- ============ 시연 4 ============ -->
+<section>
+  <p class="kicker terra">시연 ④ · 가장 강력</p>
+  <h2>이 발표자료, AI가 만든 그 화면</h2>
+  <div class="demo-card">
+    <p>발표를 잠시 멈추고 <strong>Claude Code 터미널 창</strong>으로 전환합니다.</p>
+  </div>
+  <h3 style="margin-top:0.8em;">보여줄 포인트</h3>
+  <ul>
+    <li>지금 이 발표자료를 만든 대화창이 그대로 있습니다</li>
+    <li>제가 <em>"이렇게 바꿔줘"</em>라고 한국어로 말하면 AI가 즉시 슬라이드를 다시 짭니다</li>
+    <li>그 자리에서 실제로 한 번 수정 명령을 내려서 보여주면 임팩트 최고</li>
+  </ul>
+  <blockquote style="margin-top:0.6em;">
+    "이 발표자료 자체가 시연입니다. 한국어로 말로 설명한 것을 AI가 받아서 디자인까지 끝냈습니다."
+  </blockquote>
+</section>
+
+<!-- ============ 협업 ============ -->
+<section>
+  <p class="kicker">같이 하자</p>
+  <h2>제가 가진 것 ↔ 여러분이 가진 것</h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">조경 도메인</span>
+      <h3 style="margin-top:8px;">식물 · 시공 · 정원</h3>
+      <p>한국 조경 업계 네트워크 + 식물 DB + 시공 노하우. AI 생성을 <em>"실제 시공 가능한 것"</em>으로 만들어줄 수 있음.</p>
+      <p style="margin-top:6px; color:var(--ink-mute); font-size:0.7em;">찾는 분: 이미지 생성·CAD 자동화 전문가</p>
+    </div>
+    <div class="card accent">
+      <span class="pill">사회·정책</span>
+      <h3 style="margin-top:8px;">거버넌스 · 매체 · NGO</h3>
+      <p>산림형사회적경제협의회 · 한국정원단체연합회 · 친환경선대위 · UNICEF · MSF 네트워크. 시민 AI 진입로 제공.</p>
+      <p style="margin-top:6px; color:var(--ink-mute); font-size:0.7em;">찾는 분: 사회혁신·공공 데이터 전문가</p>
+    </div>
+    <div class="card accent-terra">
+      <span class="pill t">B2B 컨설팅</span>
+      <h3 style="margin-top:8px;">중소기업 AI 도입</h3>
+      <p>대영케이블 사례처럼 <em>"AI 안 쓰는 중소기업"</em>에 시스템 + 코칭 패키지로 진입. 같이 굴릴 파트너 모집.</p>
+      <p style="margin-top:6px; color:var(--ink-mute); font-size:0.7em;">찾는 분: 영업·계약·실행 파트너</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 마지막 메시지 ============ -->
+<section class="hero">
+  <svg class="leaf-deco" style="bottom:-30px; left:-40px; transform:rotate(-10deg);" width="240" height="240" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 90 Q 50 60 50 30" stroke="#1f4c3a" stroke-width="2" fill="none"/>
+    <ellipse cx="50" cy="22" rx="6" ry="10" fill="#1f4c3a"/>
+    <ellipse cx="22" cy="42" rx="8" ry="4" transform="rotate(-30 22 42)" fill="#2d6b53"/>
+    <ellipse cx="78" cy="32" rx="8" ry="4" transform="rotate(30 78 32)" fill="#2d6b53"/>
+  </svg>
+
+  <p class="kicker terra">한 줄로 요약</p>
+  <h1 style="font-family:var(--ff-sans); font-style:normal; font-size:1.9em; line-height:1.4;">
+    AI는 <em>한 곳에 깊게 박는 것</em>이 아니라<br>
+    <em style="color:var(--green);">운영의 모든 곳에 얇게 깔리는 것</em>이<br>
+    사업자에게 <strong>훨씬 큰 ROI</strong>입니다.
+  </h1>
+  <p class="quote" style="margin-top:1.5em;">
+    여러분이 풀고 있는 문제 중<br>
+    <em>"실제 회사 운영의 디테일이 필요한 것"</em>이 있다면<br>
+    잠시 후 자유롭게 말 걸어주세요.
+  </p>
+  <p class="meta" style="margin-top:2em;">— 감성을 <em style="color:var(--terra);">가꾸는</em> 사람</p>
+</section>
+
+<!-- ============ 연락처 ============ -->
+<section>
+  <p class="kicker">Contact · Connection Designer</p>
+  <h2>나와의 연결 지점</h2>
+  <div class="grid g2">
+    <div class="card accent">
+      <h3>직접 연락</h3>
+      <p><strong>📞 010-2295-7100</strong></p>
+      <p style="margin-top:6px;"><strong>LinkedIn</strong> · linkedin.com/in/<strong>connectiondesigner</strong></p>
+      <p style="margin-top:4px;"><strong>Facebook</strong> · facebook.com/<strong>leesangmake</strong></p>
+      <p style="margin-top:4px;"><strong>GitHub</strong> · github.com/nori00000 <span style="color:var(--ink-mute); font-size:0.86em;">(docs 사이트 준비 중)</span></p>
+      <h3 style="margin-top:0.9em;">사업체</h3>
+      <p>주식회사 <strong>어반정글</strong> · <strong>네이처커뮤니티</strong></p>
+      <p style="margin-top:4px;"><strong>sociai.org</strong> (사회연대경제 매체)</p>
+      <h3 style="margin-top:0.9em;">소속</h3>
+      <p style="font-size:0.9em;">AI Beyond · AI4PKM · CMDS · 친환경선대위<br>산림형사회적경제협의회 · 한국정원단체연합회</p>
+    </div>
+    <div class="card">
+      <h3>오늘 발표 핵심 시스템</h3>
+      <ul>
+        <li>showgarden-planner — 쇼가든 설계</li>
+        <li>greenwall-ai — 기억정원 (시니어 복지)</li>
+        <li>consulting-daeyoung — 대영케이블 살핌</li>
+        <li>hometax-automation — 두 회사 백오피스</li>
+        <li>gonggo-radar — 지원사업 레이더</li>
+        <li>sociai — 사회연대경제 매체</li>
+        <li>homelab-orchestration — 컴퓨터 9대 운영</li>
+      </ul>
+      <h3 style="margin-top:0.9em;">잠시 후 만나요</h3>
+      <p>"실제 회사 운영 디테일이 필요한 것"이 있다면<br>잠시 후 자유롭게 말 걸어주세요.</p>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:1em; font-family:var(--ff-serif); font-style:italic; font-size:1.4em; color:var(--green);">
+    질문 받겠습니다.
+  </p>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  controls: true,
+  progress: true,
+  slideNumber: 'c/t',
+  transition: 'fade',
+  width: 1200,
+  height: 750,
+  margin: 0.02,
+  minScale: 0.4,
+  maxScale: 1.8
+});
+</script>
+</body>
+</html>
