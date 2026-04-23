@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>감성을 가꾸다 — 이상민 · Connection Designer</title>
+<meta name="description" content="조경 사업체 운영자가 AI로 회사를 운영하는 보고서. 자연·사람·시스템을 잇는 한 사람. 어반정글 · 네이처커뮤니티 · sociai.org">
+
+<meta property="og:title" content="감성을 가꾸다 — 이상민 · Connection Designer">
+<meta property="og:description" content="조경 사업체 운영자가 AI로 회사를 운영하는 보고서. AI Beyond Seminar 2026-04-23.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg:          #faf7ee;
+  --bg-elev:     #ffffff;
+  --bg-soft:     #f2ede0;
+  --ink:         #1a1d1a;
+  --ink-soft:    #4a4d48;
+  --ink-mute:    #8a8d88;
+  --line:        #d8d2c0;
+  --line-soft:   #e8e3d0;
+  --green:       #134538;
+  --green-mid:   #1a5d4b;
+  --green-soft:  #f1f7f4;
+  --green-deep:  #0a2820;
+  --terra:       #E87040;
+  --terra-soft:  #fbeee5;
+  --ff-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  --ff-serif: "Lora", "Times New Roman", Georgia, serif;
+  --ff-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --max-w: 760px;
+  --gutter: clamp(20px, 5vw, 48px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green); }
+a:hover { color: var(--terra); border-color: var(--terra); }
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Top sticky tag */
+.top-tag {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  z-index: 100;
+  background: rgba(250,247,238,0.85);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--line-soft);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 14vh 0 8vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero .kicker {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+.hero h1 {
+  font-family: var(--ff-serif);
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.hero h1 em {
+  color: var(--terra);
+  font-style: italic;
+}
+.hero .sub {
+  margin-top: 0.8em;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  color: var(--ink-soft);
+}
+.hero .quote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+  margin: 2em auto 0;
+  max-width: 32ch;
+  color: var(--ink);
+}
+.hero .quote em { color: var(--terra); }
+.hero .meta {
+  margin-top: 2.5em;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* Leaf decoration */
+.leaf {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.10;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: 2.6em;
+  margin-top: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stat .n {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 2.6em;
+  font-weight: 400;
+  color: var(--green);
+  line-height: 1;
+  display: block;
+}
+.stat .n.t { color: var(--terra); }
+.stat .k {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.6em;
+}
+
+/* Section */
+section {
+  padding: 4em 0;
+  border-top: 1px solid var(--line-soft);
+}
+section:first-of-type { border-top: 0; }
+
+.kicker {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 0.6em;
+  display: block;
+}
+.kicker.t { color: var(--terra); }
+
+h2 {
+  font-family: var(--ff-serif);
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.8em;
+  color: var(--ink);
+}
+h2 em { color: var(--terra); font-style: italic; }
+h3 {
+  font-family: var(--ff-sans);
+  font-size: 1.05em;
+  font-weight: 600;
+  margin-bottom: 0.4em;
+  color: var(--ink);
+}
+p { color: var(--ink-soft); margin-bottom: 0.8em; }
+strong { color: var(--green); font-weight: 700; }
+em { color: var(--terra); font-family: var(--ff-serif); font-style: italic; font-weight: 500; }
+
+blockquote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 4px solid var(--green);
+  background: var(--green-soft);
+  padding: 0.9em 1.3em;
+  margin: 1em 0;
+  border-radius: 3px;
+}
+
+/* Card */
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.1em 1.3em;
+  margin-bottom: 0.8em;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  border-color: var(--green);
+  box-shadow: 0 4px 18px rgba(19,69,56,0.08);
+  transform: translateY(-2px);
+}
+.card.accent { border-left: 3px solid var(--green); }
+.card.accent-t { border-left: 3px solid var(--terra); }
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 12px;
+}
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 600px) {
+  .g2, .g3 { grid-template-columns: 1fr; }
+}
+
+/* Flow matrix */
+.flow {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  overflow: hidden;
+  margin: 1em 0;
+}
+.flow-row {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 1.3fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.92em;
+  transition: background 0.2s;
+}
+.flow-row:last-child { border-bottom: 0; }
+.flow-row:hover { background: var(--green-soft); }
+.flow-row .col-a { font-weight: 600; color: var(--ink); }
+.flow-row .col-b {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  color: var(--terra);
+  text-align: center;
+}
+.flow-row .col-c { color: var(--ink-soft); font-size: 0.95em; }
+@media (max-width: 600px) {
+  .flow-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 16px; }
+  .flow-row .col-b { text-align: left; font-size: 0.95em; }
+}
+
+/* Pill */
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--green-soft);
+  color: var(--green);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+.pill.t { background: var(--terra-soft); color: var(--terra); border-color: rgba(232,112,64,0.3); }
+
+/* Contact card */
+.contact-card {
+  background: var(--green-deep);
+  color: #f4ede0;
+  border-radius: 8px;
+  padding: 1.6em 1.6em;
+  margin-top: 0.8em;
+}
+.contact-card h3 { color: #f4ede0; font-size: 1em; margin-bottom: 0.5em; }
+.contact-card p { color: #c8d4cc; margin-bottom: 0.4em; font-size: 0.95em; }
+.contact-card strong { color: #f4ede0; font-weight: 600; }
+.contact-card a { color: #ffd0b0; border-color: rgba(255,208,176,0.4); }
+.contact-card a:hover { color: #fff; border-color: #fff; }
+.contact-card .phone {
+  font-family: var(--ff-mono);
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #ffd0b0;
+  letter-spacing: 0.05em;
+  display: block;
+  margin: 0.3em 0 0.8em;
+}
+
+/* Mentor card */
+.mentor {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 1em 1.3em;
+}
+.mentor h3 { color: var(--green); font-family: var(--ff-serif); font-style: italic; font-weight: 500; }
+
+/* Footer */
+footer {
+  padding: 3em 0 4em;
+  border-top: 1px solid var(--line-soft);
+  text-align: center;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+
+/* Smooth section reveal on scroll */
+section { opacity: 1; transition: opacity 0.6s ease, transform 0.6s ease; }
+</style>
+</head>
+<body>
+
+<div class="top-tag">v0.1 · 2026-04-23 · nori00000</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="leaf" style="top:-30px; left:-50px; transform:rotate(-15deg);" width="220" height="220" viewBox="0 0 100 100">
+    <path d="M50 6 C 72 18, 82 38, 78 60 C 74 80, 60 92, 50 94 C 40 92, 26 80, 22 60 C 18 38, 28 18, 50 6 Z" fill="#134538"/>
+    <path d="M50 6 L50 94" stroke="#0a2820" stroke-width="0.5" opacity="0.5"/>
+  </svg>
+  <svg class="leaf" style="bottom:-40px; right:-30px; transform:rotate(20deg);" width="180" height="180" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="8" fill="#E87040"/>
+    <ellipse cx="50" cy="28" rx="8" ry="14" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="50" cy="72" rx="8" ry="14" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="28" cy="50" rx="14" ry="8" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="72" cy="50" rx="14" ry="8" fill="#E87040" opacity="0.7"/>
+  </svg>
+
+  <div class="kicker">AI Beyond Seminar · 2026.04.23 · Connection Designer</div>
+  <h1>감성을 <em>가꾸다</em></h1>
+  <p class="sub">자연 · 사람 · 시스템을 잇는 한 사람의 AI 운영 보고서</p>
+
+  <div class="stats">
+    <div class="stat"><span class="n">5</span><span class="k">활동 영역</span></div>
+    <div class="stat"><span class="n t">2</span><span class="k">법인</span></div>
+    <div class="stat"><span class="n">36</span><span class="k">운영 시스템</span></div>
+    <div class="stat"><span class="n t">9</span><span class="k">머신</span></div>
+  </div>
+
+  <div class="quote">
+    "AI를 잘 쓰는 사람과 못 쓰는 사람의 차이는<br>
+    <em>프롬프트</em>가 아니라 <em>하네스</em>다."
+  </div>
+
+  <div class="meta">이상민 · 어반정글 / 네이처커뮤니티</div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <span class="kicker">About</span>
+  <h2>저는 누구인가 — <em>세 모자</em></h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">운영자·메이커</span>
+      <h3 style="margin-top:8px;">두 회사 + 메이킹</h3>
+      <p style="font-size:0.88em;"><strong>어반정글</strong> 정원 시공 · <strong>네이처커뮤니티</strong> 고양시 대화동 이끼 농장(교육문화메이킹) · <em>실사인쇄·자연소재 가공</em></p>
+    </div>
+    <div class="card accent">
+      <span class="pill">애자일 코치</span>
+      <h3 style="margin-top:8px;">중소기업 AI 도입</h3>
+      <p style="font-size:0.88em;">대영케이블 — <em>"살핌"</em> 프로젝트. 받은 자료를 <strong>8일 안에 시스템에 이식</strong>하는 빠른 사이클.</p>
+    </div>
+    <div class="card accent-t">
+      <span class="pill t">정책·문화</span>
+      <h3 style="margin-top:8px;">거버넌스·문화기획</h3>
+      <p style="font-size:0.88em;">산림형사회적경제·정원단체연합회 · 친환경선대위 공동선대위원장 · <em>10대부터</em> 만 18세 선거권 캠페인 · UNICEF·MSF 운영 경력</p>
+    </div>
+  </div>
+</section>
+
+<!-- 감성 매트릭스 -->
+<section>
+  <span class="kicker">한 엔진 · 다섯 표현</span>
+  <h2>다섯 활동, 한 엔진 — <em>감성을 가꾸다</em></h2>
+  <p style="font-size:0.92em;">자연을 가꾸듯 사람의 마음을 가꿉니다. AI는 그 가꿈을 매일 가속합니다.</p>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="col-a">🌿 이끼 농장 · 교육문화</div>
+      <div class="col-b">"회복 · 치유"</div>
+      <div class="col-c">기억정원 — 시니어 인지 회복 AI</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🪴 정원 설계·시공 · 어반정글</div>
+      <div class="col-b">"위안 · 평화"</div>
+      <div class="col-c">쇼가든 설계 시스템 + 그린월</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🛠 메이커 · 자연소재</div>
+      <div class="col-b">"정성 · 손맛"</div>
+      <div class="col-c">디자인 생성 + 제작 자동화</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🌱 거버넌스 · 정책</div>
+      <div class="col-b">"연대 · 공감"</div>
+      <div class="col-c">정책 모니터링 + 인사이트</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">🌟 청소년 문화기획</div>
+      <div class="col-b">"깨움 · 변화"</div>
+      <div class="col-c">sociai.org 매체 + 시민 콘텐츠</div>
+    </div>
+  </div>
+</section>
+
+<!-- 운영 시스템 6개 -->
+<section>
+  <span class="kicker">PART 1 · 운영의 6개 지점</span>
+  <h2>회사 운영의 모든 곳에 <em>AI</em>가 있습니다</h2>
+  <div class="grid g2">
+    <div class="card"><span class="pill">설계</span><h3 style="margin-top:6px;">쇼가든 설계 도구</h3><p style="font-size:0.85em;">showgarden-planner</p></div>
+    <div class="card"><span class="pill">시공·관리</span><h3 style="margin-top:6px;">기억정원 플랫폼</h3><p style="font-size:0.85em;">greenwall-ai · 시니어 복지</p></div>
+    <div class="card"><span class="pill">영업·자금</span><h3 style="margin-top:6px;">지원사업 레이더</h3><p style="font-size:0.85em;">gonggo-radar · 28개 사이트 24/7</p></div>
+    <div class="card"><span class="pill">백오피스</span><h3 style="margin-top:6px;">홈택스 자동화</h3><p style="font-size:0.85em;">두 회사 세금계산서 자동</p></div>
+    <div class="card"><span class="pill">컨설팅</span><h3 style="margin-top:6px;">대영케이블 살핌</h3><p style="font-size:0.85em;">사내 시스템 + 월정액 코칭</p></div>
+    <div class="card accent-t"><span class="pill t">미디어</span><h3 style="margin-top:6px;">Sociai · 마케팅팀</h3><p style="font-size:0.85em;">자체 매체 + AI 마케팅</p></div>
+  </div>
+  <blockquote style="margin-top:1em;">한 곳에 깊게 박는 것보다 <strong>운영의 모든 곳에 얇게 깔리는 것</strong>이 사업자에게 훨씬 큰 ROI입니다.</blockquote>
+</section>
+
+<!-- 멘토 -->
+<section>
+  <span class="kicker">AI Beyond 가족</span>
+  <h2>오늘 같은 자리 발표자 — <em>제가 빚진 분들</em></h2>
+  <div class="mentor" style="margin-bottom:0.8em;">
+    <h3>이주원 (인튠랩스)</h3>
+    <p style="font-size:0.92em;">"The Autonomous Software Factory" PDF + 오늘 직전 발표 <em>"나발을 소환하다 · Naval의 뇌"</em>. → 8일 만에 본인 시스템에 하네스 5단계 적용.</p>
+  </div>
+  <div class="mentor" style="margin-bottom:0.8em;">
+    <h3>구요한 (CMDS · AI4PKM)</h3>
+    <p style="font-size:0.92em;"><a href="https://system.cmdspace.work/">system.cmdspace.work</a> CMDS 시스템 위에서 매일 7,660+ 노트 운용. AI4PKM Gobi 초기 멤버.</p>
+  </div>
+  <div class="mentor">
+    <h3>손상현 (VoidNews)</h3>
+    <p style="font-size:0.92em;"><a href="https://voidnews-archive.vercel.app/">voidnews-archive</a> 주간 AI 큐레이션 — Anthropic Advisor/Executor Split → 시스템 룰에 즉시 반영. 정확도 +2.7%p, 비용 −11.9%.</p>
+  </div>
+  <blockquote style="margin-top:1em;">제 차별점은 "이 분들 옆에 있는 것" + <em>받은 자료를 며칠 안에 회사 시스템에 이식하는 속도</em>입니다. 이게 <strong>애자일 코치의 사이클</strong>.</blockquote>
+</section>
+
+<!-- 같이 하자 -->
+<section>
+  <span class="kicker">같이 하자</span>
+  <h2>제가 가진 것 ↔ 여러분이 가진 것</h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">조경 도메인</span>
+      <h3 style="margin-top:6px;">식물 · 시공 · 정원</h3>
+      <p style="font-size:0.85em;">한국 조경 업계 네트워크 + 식물 DB. 찾는 분: <em>이미지·CAD 자동화 전문가</em></p>
+    </div>
+    <div class="card accent">
+      <span class="pill">사회·정책</span>
+      <h3 style="margin-top:6px;">매체 · NGO · 정치</h3>
+      <p style="font-size:0.85em;">친환경선대위 · 시민단체 · UNICEF · MSF · 산림형사회적경제. 찾는 분: <em>사회혁신·공공 데이터</em></p>
+    </div>
+    <div class="card accent-t">
+      <span class="pill t">B2B 컨설팅</span>
+      <h3 style="margin-top:6px;">중소기업 AI 도입</h3>
+      <p style="font-size:0.85em;">대영케이블 사례. 찾는 분: <em>영업·계약·실행 파트너</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section>
+  <span class="kicker t">Contact</span>
+  <h2>나와의 <em>연결 지점</em></h2>
+  <p style="font-size:0.95em;">"Connection Designer"가 제 정체성입니다. 어떤 채널로든 편하게 연결하세요.</p>
+
+  <div class="contact-card">
+    <h3>📞 직접 연락</h3>
+    <span class="phone">010-2295-7100</span>
+
+    <h3 style="margin-top:0.8em;">🔗 채널</h3>
+    <p><strong>LinkedIn</strong> · <a href="https://www.linkedin.com/in/connectiondesigner/">linkedin.com/in/connectiondesigner</a></p>
+    <p><strong>Facebook</strong> · <a href="https://www.facebook.com/leesangmake">facebook.com/leesangmake</a></p>
+    <p><strong>GitHub</strong> · github.com/nori00000 <span style="color:#9aa39d; font-size:0.88em;">(docs 사이트 준비 중)</span></p>
+
+    <h3 style="margin-top:0.8em;">🏢 사업체</h3>
+    <p>주식회사 <strong>어반정글</strong> · <strong>네이처커뮤니티</strong></p>
+    <p><a href="https://sociai.org">sociai.org</a> 사회연대경제 매체</p>
+
+    <h3 style="margin-top:0.8em;">🌿 소속</h3>
+    <p style="font-size:0.9em;">AI Beyond · AI4PKM · CMDS · 친환경선대위 · 산림형사회적경제협의회 · 한국정원단체연합회</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  v0.1 · 2026-04-23 · nori00000 · 감성을 가꾸다<br>
+  <span style="margin-top:8px; display:inline-block; opacity:0.7;">Connection Designer · 자연 · 사람 · 시스템을 잇는다</span>
+</footer>
+
+</main>
+
+</body>
+</html>
