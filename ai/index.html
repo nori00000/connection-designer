@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI로 회사와 정책을 굴리다 — 이상민 · Connection Designer</title>
+<meta name="description" content="한 사람이 2법인 · 정책 거버넌스 · 시민 매체를 AI 하네스로 굴리는 보고서. 36개 운영 시스템 · 9대 머신 · 6개 AI 도입 지점. 어반정글 · 네이처커뮤니티 · sociai.org · 친환경선대위 · 산림형사회적경제협의회">
+
+<meta property="og:title" content="AI로 회사와 정책을 굴리다 — 이상민 · Connection Designer">
+<meta property="og:description" content="한 사람이 2법인 · 정책 거버넌스 · 시민 매체를 AI 하네스로 굴리는 보고서. AI 비즈니스 미팅 + 정책·거버넌스 미팅 통합 버전 v0.3.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg:          #faf7ee;
+  --bg-elev:     #ffffff;
+  --bg-soft:     #f2ede0;
+  --ink:         #1a1d1a;
+  --ink-soft:    #4a4d48;
+  --ink-mute:    #8a8d88;
+  --line:        #d8d2c0;
+  --line-soft:   #e8e3d0;
+  --green:       #134538;
+  --green-mid:   #1a5d4b;
+  --green-soft:  #f1f7f4;
+  --green-deep:  #0a2820;
+  --terra:       #E87040;
+  --terra-soft:  #fbeee5;
+  --ff-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  --ff-serif: "Lora", "Times New Roman", Georgia, serif;
+  --ff-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --max-w: 760px;
+  --gutter: clamp(20px, 5vw, 48px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green); }
+a:hover { color: var(--terra); border-color: var(--terra); }
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.top-tag {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  z-index: 100;
+  background: rgba(250,247,238,0.85);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--line-soft);
+}
+
+.hero {
+  text-align: center;
+  padding: 14vh 0 8vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero .kicker {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+.hero h1 {
+  font-family: var(--ff-serif);
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.hero h1 em {
+  color: var(--terra);
+  font-style: italic;
+}
+.hero .sub {
+  margin-top: 0.9em;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  color: var(--ink-soft);
+}
+.hero .quote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+  margin: 2em auto 0;
+  max-width: 32ch;
+  color: var(--ink);
+}
+.hero .quote em { color: var(--terra); }
+.hero .meta {
+  margin-top: 2.5em;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.leaf {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.10;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+
+.stats {
+  display: flex;
+  gap: 2.4em;
+  margin-top: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stat .n {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 2.6em;
+  font-weight: 400;
+  color: var(--green);
+  line-height: 1;
+  display: block;
+}
+.stat .n.t { color: var(--terra); }
+.stat .k {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.6em;
+}
+
+section {
+  padding: 4em 0;
+  border-top: 1px solid var(--line-soft);
+}
+section:first-of-type { border-top: 0; }
+
+.kicker {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 0.6em;
+  display: block;
+}
+.kicker.t { color: var(--terra); }
+
+h2 {
+  font-family: var(--ff-serif);
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.8em;
+  color: var(--ink);
+}
+h2 em { color: var(--terra); font-style: italic; }
+h3 {
+  font-family: var(--ff-sans);
+  font-size: 1.05em;
+  font-weight: 600;
+  margin-bottom: 0.4em;
+  color: var(--ink);
+}
+p { color: var(--ink-soft); margin-bottom: 0.8em; }
+strong { color: var(--green); font-weight: 700; }
+em { color: var(--terra); font-family: var(--ff-serif); font-style: italic; font-weight: 500; }
+
+blockquote {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 4px solid var(--green);
+  background: var(--green-soft);
+  padding: 0.9em 1.3em;
+  margin: 1em 0;
+  border-radius: 3px;
+}
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.1em 1.3em;
+  margin-bottom: 0.8em;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  border-color: var(--green);
+  box-shadow: 0 4px 18px rgba(19,69,56,0.08);
+  transform: translateY(-2px);
+}
+.card.accent { border-left: 3px solid var(--green); }
+.card.accent-t { border-left: 3px solid var(--terra); }
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 600px) {
+  .g2, .g3 { grid-template-columns: 1fr; }
+}
+
+.flow {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  overflow: hidden;
+  margin: 1em 0;
+}
+.flow-row {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 1.3fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.92em;
+  transition: background 0.2s;
+}
+.flow-row:last-child { border-bottom: 0; }
+.flow-row:hover { background: var(--green-soft); }
+.flow-row .col-a { font-weight: 600; color: var(--ink); }
+.flow-row .col-b {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  color: var(--terra);
+  text-align: center;
+}
+.flow-row .col-c { color: var(--ink-soft); font-size: 0.95em; }
+@media (max-width: 600px) {
+  .flow-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 16px; }
+  .flow-row .col-b { text-align: left; font-size: 0.95em; }
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--green-soft);
+  color: var(--green);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+.pill.t { background: var(--terra-soft); color: var(--terra); border-color: rgba(232,112,64,0.3); }
+
+.contact-card {
+  background: var(--green-deep);
+  color: #f4ede0;
+  border-radius: 8px;
+  padding: 1.6em 1.6em;
+  margin-top: 0.8em;
+}
+.contact-card h3 { color: #f4ede0; font-size: 1em; margin-bottom: 0.5em; }
+.contact-card p { color: #c8d4cc; margin-bottom: 0.4em; font-size: 0.95em; }
+.contact-card strong { color: #f4ede0; font-weight: 600; }
+.contact-card a { color: #ffd0b0; border-color: rgba(255,208,176,0.4); }
+.contact-card a:hover { color: #fff; border-color: #fff; }
+.contact-card .phone {
+  font-family: var(--ff-mono);
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #ffd0b0;
+  letter-spacing: 0.05em;
+  display: block;
+  margin: 0.3em 0 0.8em;
+}
+
+footer {
+  padding: 3em 0 4em;
+  border-top: 1px solid var(--line-soft);
+  text-align: center;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+
+section { opacity: 1; transition: opacity 0.6s ease, transform 0.6s ease; }
+
+.nav-pill {
+  display: inline-block;
+  margin-top: 0.8em;
+  padding: 6px 14px;
+  background: var(--bg-soft);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-pill:hover { background: var(--green-soft); color: var(--green); border-color: var(--green); }
+</style>
+</head>
+<body>
+
+<div class="top-tag">v0.3 · AI + POLICY · nori00000</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="leaf" style="top:-30px; left:-50px; transform:rotate(-15deg);" width="220" height="220" viewBox="0 0 100 100">
+    <path d="M50 6 C 72 18, 82 38, 78 60 C 74 80, 60 92, 50 94 C 40 92, 26 80, 22 60 C 18 38, 28 18, 50 6 Z" fill="#134538"/>
+    <path d="M50 6 L50 94" stroke="#0a2820" stroke-width="0.5" opacity="0.5"/>
+  </svg>
+  <svg class="leaf" style="bottom:-40px; right:-30px; transform:rotate(20deg);" width="180" height="180" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="8" fill="#E87040"/>
+    <ellipse cx="50" cy="28" rx="8" ry="14" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="50" cy="72" rx="8" ry="14" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="28" cy="50" rx="14" ry="8" fill="#E87040" opacity="0.7"/>
+    <ellipse cx="72" cy="50" rx="14" ry="8" fill="#E87040" opacity="0.7"/>
+  </svg>
+
+  <a href="../" style="text-decoration:none; border:0;"><span class="nav-pill">← v0.1 감성을 가꾸다 버전</span></a>
+
+  <div class="kicker" style="margin-top:1em;">AI · POLICY · GOVERNANCE · Connection Designer</div>
+  <h1>AI로 <em>회사</em>와 <em>정책</em>을 굴리다</h1>
+  <p class="sub">한 사람이 <strong>2법인 · 정책 거버넌스 · 시민 매체</strong>를 굴리는 AI 하네스 보고서</p>
+
+  <div class="stats">
+    <div class="stat"><span class="n t">2</span><span class="k">법인</span></div>
+    <div class="stat"><span class="n">36</span><span class="k">AI 운영 시스템</span></div>
+    <div class="stat"><span class="n t">9</span><span class="k">운영 머신</span></div>
+    <div class="stat"><span class="n">6</span><span class="k">AI 도입 지점</span></div>
+  </div>
+
+  <div class="quote">
+    "AI를 잘 쓰는 사람과 못 쓰는 사람의 차이는<br>
+    <em>프롬프트</em>가 아니라 <em>하네스</em>다."
+  </div>
+
+  <div class="meta">이상민 · 어반정글 · 네이처커뮤니티 · sociai.org · 친환경선대위 · 산림형사회적경제협의회</div>
+
+  <a href="presentation.html" style="display:inline-block; margin-top:2em; padding:14px 32px; background:#134538; color:#faf7ee; border:0; border-radius:999px; font-family:var(--ff-mono); font-size:13px; letter-spacing:0.15em; text-transform:uppercase; font-weight:600; box-shadow:0 4px 18px rgba(19,69,56,0.2); text-decoration:none;" target="_blank">▶ 발표 슬라이드 전체 보기</a>
+</section>
+
+<!-- 발표 슬라이드 임베드 -->
+<section>
+  <span class="kicker">Presentation Deck</span>
+  <h2>AI + 정책 보고서 — <em>전체 슬라이드</em></h2>
+  <p style="font-size:0.92em;">아래 화면에서 바로 넘겨보세요. 키보드 <strong>← →</strong> 또는 마우스 클릭. 작게 보이면 <a href="presentation.html" target="_blank">전체 화면으로 열기</a>.</p>
+  <div style="position:relative; width:100%; padding-bottom:62.5%; height:0; overflow:hidden; border-radius:8px; border:1px solid var(--line); box-shadow:0 4px 18px rgba(19,69,56,0.10); margin-top:1em; background:#000;">
+    <iframe src="presentation.html"
+            style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+            allowfullscreen
+            loading="lazy"></iframe>
+  </div>
+  <p style="text-align:center; margin-top:0.8em; font-family:var(--ff-mono); font-size:11px; letter-spacing:0.15em; color:var(--ink-mute); text-transform:uppercase;">
+    <a href="presentation.html" target="_blank">전체 화면으로 보기 ↗</a>
+  </p>
+</section>
+
+<!-- ONE-LINE POSITION -->
+<section>
+  <span class="kicker t">One-line Position</span>
+  <h2>저는 <em>회사를 AI로 운영하면서 정책도 함께</em> 굴리는 사람입니다</h2>
+  <p style="font-size:1.05em;">시중의 "AI 컨설턴트"는 대부분 <em>고객 회사</em>에 AI를 설치만 하거나 강연에서 만나는 사람입니다. 저는 먼저 <strong>제 회사 2개</strong>를 AI로 운영해 증명했고, 같은 하루 안에 <strong>꽃박람회 MSF 쇼가든 시공</strong> · <strong>친환경선대위 거버넌스</strong> · <strong>산림형사회적경제협의회 정책 회의</strong>를 같이 굴립니다.</p>
+  <p style="font-size:1.05em; margin-top:0.6em;"><strong>36개 시스템</strong>이 <strong>9대 머신</strong> 위에서 24시간 돌며, 운영의 <strong>6개 지점</strong> 모두에 AI가 깔려 있습니다. 그 운영 구조를 <strong>중소기업과 정책 기관</strong>에 이식합니다.</p>
+  <blockquote style="margin-top:1.2em;"><em>"제가 이미 AI로 회사를 굴리고 있고, 같은 엔진으로 정책 활동도 굴립니다"</em> — 비즈니스 미팅에선 영업 증거, 정책 미팅에선 실행력 증거.</blockquote>
+</section>
+
+<!-- ABOUT — 세 축 -->
+<section>
+  <span class="kicker">About</span>
+  <h2>세 축 — <em>AI 운영</em> · <em>AI 도입</em> · <em>정책·거버넌스</em></h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">AI 운영자</span>
+      <h3 style="margin-top:8px;">2법인 + 자체 매체</h3>
+      <p style="font-size:0.88em;"><strong>어반정글</strong> 정원 설계·시공 · <strong>네이처커뮤니티</strong> 고양 대화동 이끼 농장(교육문화메이킹) · <strong>sociai.org</strong> 시민 매체 플랫폼</p>
+    </div>
+    <div class="card accent">
+      <span class="pill">AI 도입 파트너</span>
+      <h3 style="margin-top:8px;">중소기업·공공 AI 도입</h3>
+      <p style="font-size:0.88em;">대영케이블 — <em>"살핌"</em> 프로젝트. 사내 시스템 <strong>6주 구축</strong> + 월정액 코칭. 최신 AI 자료를 <em>8일 안에 현장 시스템으로 이식</em>하는 속도. 공공·정책 도메인에도 동일 모델 적용 가능.</p>
+    </div>
+    <div class="card accent-t">
+      <span class="pill t">정책·거버넌스</span>
+      <h3 style="margin-top:8px;">거버넌스 · 시민 문화</h3>
+      <p style="font-size:0.88em;"><strong>이재명 대선 친환경선대위 공동선대위원장</strong> · 산림형사회적경제협의회 · 한국정원단체연합회 · 만 18세 선거권 캠페인 설계 · UNICEF · MSF · 서울식물원 · 서울숲 운영 경력</p>
+    </div>
+  </div>
+</section>
+
+<!-- 정책 트랙 상세 -->
+<section>
+  <span class="kicker t">정책 트랙</span>
+  <h2>같은 AI 엔진이 <em>정책 거버넌스</em>에도 그대로 쓰입니다</h2>
+  <div class="grid g2">
+    <div class="card accent">
+      <h3>활동 포트폴리오</h3>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>이재명 대선 친환경선대위 공동선대위원장</strong> — 환경·기후 정책 기획</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>산림형사회적경제협의회</strong> — 산림·임업 사회적경제 정책 참여</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>한국정원단체연합회</strong> — 정원 산업 거버넌스</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>만 18세 선거권 캠페인</strong> 설계자 — 10대부터 청소년 문화기획 접근</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>UNICEF · MSF</strong> 현장 운영 경력 — 국제 인도주의</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>서울식물원 · 서울숲</strong> 공공 공간 운영 경력</p>
+    </div>
+    <div class="card accent-t">
+      <h3>AI가 정책에 어떻게 기여하는가</h3>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>gonggo-radar</strong> — 28개 사이트 자동 모니터링. 정책 흐름 실시간 포착.</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>sociai.org</strong> — 주류 매체가 안 다루는 친환경·협동조합·복지 영역 자체 매체.</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>단톡방·뉴스 자동 분석</strong> — 정책 커뮤니티 인사이트를 구조화된 데이터로 변환.</p>
+      <p style="font-size:0.9em; margin-top:0.4em;"><strong>공공데이터·정책 문서 크롤링</strong> — 정책 레퍼런스의 체계화.</p>
+    </div>
+  </div>
+  <blockquote style="margin-top:1em;"><strong>같은 AI 엔진</strong>이 회사 운영과 정책 거버넌스를 동시에 굴립니다. <em>1인이 세 축을 지속 가능하게 유지하는 구조.</em></blockquote>
+</section>
+
+<!-- 6개 운영 지점 -->
+<section>
+  <span class="kicker">Operations Map</span>
+  <h2>회사 운영의 모든 곳에 <em>AI</em>가 있습니다</h2>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="col-a">① 설계</div>
+      <div class="col-b">"암묵을 시스템으로"</div>
+      <div class="col-c">쇼가든 설계 도구 · showgarden-planner</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">② 시공·관리</div>
+      <div class="col-b">"피벗 가능한 제품"</div>
+      <div class="col-c">기억정원 · greenwall-ai · 시니어 인지 회복</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">③ 영업·자금</div>
+      <div class="col-b">"24/7 레이더"</div>
+      <div class="col-c">지원사업·정책 레이더 · gonggo-radar · 28개 사이트</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">④ 백오피스</div>
+      <div class="col-b">"2법인→1인 규모"</div>
+      <div class="col-c">홈택스 자동화 · hometax-automation</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">⑤ 컨설팅</div>
+      <div class="col-b">"실증으로 영업"</div>
+      <div class="col-c">대영케이블 살핌 · consulting-daeyoung</div>
+    </div>
+    <div class="flow-row">
+      <div class="col-a">⑥ 미디어</div>
+      <div class="col-b">"광고가 아닌 자산"</div>
+      <div class="col-c">sociai · content-marketing-team</div>
+    </div>
+  </div>
+  <blockquote style="margin-top:1em;">한 곳에 깊게 박는 것보다 <strong>운영의 모든 곳에 얇게 깔리는 것</strong>이 사업자·시민·정책가 모두에게 훨씬 큰 ROI입니다. 6개를 합치면 직원 2~3명 분의 일을 AI가 처리합니다.</blockquote>
+</section>
+
+<!-- 하네스 -->
+<section>
+  <span class="kicker t">Harness Engineering</span>
+  <h2>"안 멈추는 시스템"이 <em>진짜 ROI</em>입니다</h2>
+  <p>"내가 매번 들여다봐야 하는 AI 시스템" = <em>직원 한 명 더 쓰는 것</em>과 동일 비용. ROI 0. AI 도입의 진짜 목표는 <strong>"AI가 일하는 것"</strong>이 아니라 <strong>"의사결정자가 안 들여다봐도 되는 것"</strong>입니다.</p>
+  <div class="grid g2" style="margin-top:1em;">
+    <div class="card">
+      <h3>Before</h3>
+      <p style="font-size:0.92em;">자동화 스크립트가 <em>30분마다 멈춰서 승인 요청</em>. 결국 직접 감시.</p>
+    </div>
+    <div class="card accent-t">
+      <h3>After 하네스 적용</h3>
+      <p style="font-size:0.92em;"><strong>2시간씩 알아서 일함</strong>. 작업 시간 <strong>30% 이상 회복</strong>. Advisor/Executor 분리 · 모호성 게이트 · 키워드 우선 원칙.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 협업 -->
+<section>
+  <span class="kicker">Collaboration</span>
+  <h2>제가 가진 것 ↔ <em>여러분이 가진 것</em></h2>
+  <div class="grid g3">
+    <div class="card accent">
+      <span class="pill">AI × 도메인</span>
+      <h3 style="margin-top:6px;">조경·식물 AI</h3>
+      <p style="font-size:0.85em;">조경 업계 네트워크 + 식물·시공 DB. 생성 AI가 <em>실시공 가능</em>한 결과를 뱉게 하는 구속조건 제공. 찾는 분: <em>이미지 생성·CAD 자동화·3D</em></p>
+    </div>
+    <div class="card accent-t">
+      <span class="pill t">사회·정책</span>
+      <h3 style="margin-top:6px;">거버넌스·매체·NGO</h3>
+      <p style="font-size:0.85em;">산림형사회적경제협의회 · 한국정원단체연합회 · 친환경선대위 · UNICEF · MSF · 서울식물원·서울숲 네트워크. 시민 AI 진입로 제공 + 정책 파일럿 공동 설계. 찾는 분: <em>사회혁신·공공 데이터·정책 AI 파트너</em></p>
+    </div>
+    <div class="card accent">
+      <span class="pill">B2B/B2G AI 도입</span>
+      <h3 style="margin-top:6px;">중소기업·공공 컨설팅</h3>
+      <p style="font-size:0.85em;">대영케이블 "살핌" 모델 복제 준비 중. "AI 안 쓰는 중소기업·공공 기관"에 6주 구축 + 월정액 코칭 패키지로 진입. 찾는 분: <em>영업·계약·실행 파트너</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section>
+  <span class="kicker t">Contact</span>
+  <h2>나와의 <em>연결 지점</em></h2>
+  <p style="font-size:0.95em;">"Connection Designer"가 제 정체성입니다. AI로 사람·데이터·시스템을 잇는 걸 설계합니다. 어떤 채널로든 편하게 연결하세요.</p>
+
+  <div class="contact-card">
+    <h3>📞 직접 연락</h3>
+    <span class="phone">010-2295-7100</span>
+
+    <h3 style="margin-top:0.8em;">🔗 채널</h3>
+    <p><strong>LinkedIn</strong> · <a href="https://www.linkedin.com/in/connectiondesigner/">linkedin.com/in/connectiondesigner</a></p>
+    <p><strong>Facebook</strong> · <a href="https://www.facebook.com/leesangmake">facebook.com/leesangmake</a></p>
+    <p><strong>GitHub</strong> · github.com/nori00000 <span style="color:#9aa39d; font-size:0.88em;">(docs 사이트 준비 중)</span></p>
+
+    <h3 style="margin-top:0.8em;">🏢 사업체</h3>
+    <p>주식회사 <strong>어반정글</strong> — 조경 설계·시공</p>
+    <p><strong>네이처커뮤니티</strong> — 교육문화메이킹 (고양 대화동 이끼 농장)</p>
+    <p><a href="https://sociai.org">sociai.org</a> — 시민 매체 플랫폼</p>
+
+    <h3 style="margin-top:0.8em;">🏛 정책·거버넌스</h3>
+    <p style="font-size:0.9em;">이재명 대선 친환경선대위 공동선대위원장 · 산림형사회적경제협의회 · 한국정원단체연합회 · 만 18세 선거권 캠페인 · UNICEF · MSF · 서울식물원 · 서울숲 (운영 경력)</p>
+
+    <h3 style="margin-top:0.8em;">🤖 AI 활동</h3>
+    <p style="font-size:0.9em;">AI 운영 · 중소기업·공공 AI 도입 컨설팅 · 하네스 엔지니어링 · 한국어 LLMOps 실험</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  v0.3 · AI + Policy Report · nori00000<br>
+  <span style="margin-top:8px; display:inline-block; opacity:0.7;">Connection Designer · AI로 사람·데이터·시스템을 잇는다</span>
+</footer>
+
+</main>
+
+</body>
+</html>
