@@ -1,7 +1,9 @@
 # Connection Designer
 
-> **한눈에 / At a glance**  
-> Static bilingual portfolio/presentation connecting AI operations, public-interest work, and landscape projects.  
+> **한눈에 / At a glance**
+>
+> Static bilingual portfolio/presentation connecting AI operations, public-interest work, and landscape projects.
+>
 > 자세한 한영 프로젝트 설명, 검색 키워드, 저작권 범위: [PROJECT.md](./PROJECT.md) · [NOTICE.md](./NOTICE.md)
 
 
