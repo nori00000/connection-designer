@@ -20,7 +20,7 @@ Connection Designer는 정적 발표/포트폴리오 페이지입니다. AI 기�
 
 - Korean / 한국어: 발표자료, 포트폴리오, AI 운영, 조경, 쇼가든, 사회혁신, 공공 데이터, 프로젝트 연결, 정적 HTML
 - English: presentation, portfolio, AI operations, landscaping, show garden, social innovation, public data, project connections, static HTML
-- Technical / 기술: HTML, CSS, Reveal.js-style presentation, static site, GitHub Pages
+- Technical / 기술: HTML, CSS, Reveal.js presentation (reveal.js@5.1.0 via jsdelivr CDN), static site, GitHub Pages <!-- DOC-SYNC: 2026-08-10 재검증 — GitHub Pages 실배포 status=built/public=true 유지 확인(`gh api repos/nori00000/connection-designer/pages`). "Reveal.js-style"을 "Reveal.js"로 정정: presentation.html이 reveal.js@5.1.0 라이브러리를 CDN에서 직접 로드해 사용 중(자체 CSS 모사가 아님, presentation.html:8-9,1106 `<script src=".../reveal.js@5.1.0/dist/reveal.js">` 실측). -->
 
 ## Repository Contents / 레포 내용
 
@@ -28,6 +28,9 @@ Connection Designer는 정적 발표/포트폴리오 페이지입니다. AI 기�
 - `presentation.html`: slide-style presentation / 슬라이드형 발표 자료
 - `msf-showgarden.jpg`: neutral placeholder image replacing a rights-unclear binary image / 권리 출처가 불명확했던 이미지를 대체한 중립 placeholder 이미지
 - `NOTICE.md`: presentation asset and trademark notice / 발표 자산과 상표 고지
+- `PROJECT.md`: this file — bilingual project metadata, keywords, and reuse boundaries / 이 문서 — 이중언어 프로젝트 메타데이터, 키워드, 재사용 범위
+- `README.md`: entry-point summary linking to this file and NOTICE.md / 이 문서와 NOTICE.md로 연결되는 진입점 요약
+<!-- DOC-SYNC: 2026-08-15 재검증 — README.md는 PROJECT.md·NOTICE.md 목록에 있으나 PROJECT.md 자신은 이 목록에서 누락되어 있었음(UNDOCUMENTED gap). 자기참조 항목 추가로 현행화. -->
 
 ## Copyright And Reuse / 저작권과 재사용
 
