@@ -1,0 +1,13 @@
+name: Static site smoke test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify published pages and local links
+        run: python3 scripts/smoke_test.py
