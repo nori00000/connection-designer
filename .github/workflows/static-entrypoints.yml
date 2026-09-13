@@ -1,0 +1,29 @@
+name: Static entrypoints
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "presentation.html"
+      - "msf-showgarden.jpg"
+      - "tools/check_static_entrypoints.py"
+      - ".github/workflows/static-entrypoints.yml"
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "presentation.html"
+      - "msf-showgarden.jpg"
+      - "tools/check_static_entrypoints.py"
+      - ".github/workflows/static-entrypoints.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check published entrypoints and local assets
+        run: python3 tools/check_static_entrypoints.py
